@@ -6,6 +6,9 @@
 
 """
 
+import logging
+import global_equity_model
 
 if __name__ == "__main__":
-    print('爷来了！！')
+    logging.info('开始执行程序')
+    global_equity_model.modify_model()
