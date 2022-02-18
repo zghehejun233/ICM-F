@@ -18,16 +18,21 @@ education_index = np.array([])
 technology_index = np.array([])
 population = np.array([])
 
-# 定义资源水平的四个子指标及其矩阵
+# 定义科技水平的两个子指标
+patents_per_capitan = np.array([])
+electricity_per_capitan = np.array([])
 
-arable_land_per_capitan = np.array([])
+
+# 定义资源水平的三个子指标及其矩阵
+
+population_density_per_city = np.array([])
 water_per_capitan = np.array([])
 forest_per_capitan = np.array([])
-energy_per_capitan = np.array([])
 
 
 def get_resource_matrix():
-    resource_matrix = np.vstack((arable_land_per_capitan, water_per_capitan, forest_per_capitan, energy_per_capitan))
+    resource_matrix = np.vstack(
+        (population_density_per_city, water_per_capitan, forest_per_capitan, energy_per_capitan))
     return resource_matrix
 
 
