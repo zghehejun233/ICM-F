@@ -55,3 +55,8 @@ def global_equity_model_init():
     forest_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/森林面积.csv")
     config.forest_per_capitan = forest_file.values
     logging.debug(config.forest_per_capitan)
+
+
+# 数据清洗
+def global_equity_model_data_clean():
+    pass
