@@ -7,7 +7,7 @@
 """
 
 import logging
-import global_equity_model
+from src.global_equity_model import global_equity_model
 
 if __name__ == "__main__":
     logging.info('开始执行程序')

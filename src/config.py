@@ -26,7 +26,6 @@ population = np.array([])
 patents_per_capitan = np.array([])
 electricity_per_capitan = np.array([])
 
-
 # 定义资源水平的三个子指标及其矩阵
 
 population_density_per_city = np.array([])
@@ -35,8 +34,7 @@ forest_per_capitan = np.array([])
 
 
 def get_resource_matrix():
-    resource_matrix = np.vstack(
-        (population_density_per_city, water_per_capitan, forest_per_capitan))
+    resource_matrix = np.vstack((population_density_per_city, water_per_capitan, forest_per_capitan))
     return resource_matrix
 
 
