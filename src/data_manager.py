@@ -49,6 +49,7 @@ def global_equity_model_init():
     config.population_density_per_city = population_per_city_file.values
     logging.debug(config.population_density_per_city)
 
+    # 数据拟合不好，先不看
     water_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/人均可再生内陆水资源.csv")
     config.water_per_capitan = water_file.values
     logging.debug(config.water_per_capitan)
