@@ -7,6 +7,10 @@
 
 import numpy as np
 
+# 定义每个国家对应的世界银行序号
+china_index = 40
+america_index = 251
+
 # 定义八个指数数组
 
 happiness_index = np.array([])
