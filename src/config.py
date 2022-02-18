@@ -36,7 +36,7 @@ forest_per_capitan = np.array([])
 
 def get_resource_matrix():
     resource_matrix = np.vstack(
-        (population_density_per_city, water_per_capitan, forest_per_capitan, energy_per_capitan))
+        (population_density_per_city, water_per_capitan, forest_per_capitan))
     return resource_matrix
 
 

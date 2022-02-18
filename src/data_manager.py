@@ -16,8 +16,7 @@ def global_equity_model_init():
     # config.happiness_index
 
     human_development_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/人类发展指数.csv")
-    temp = human_development_file.values
-    config.development_index = temp[config.china_index]
+    config.development_index = human_development_file.values
     logging.debug(config.development_index)
 
     labor_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/劳动力.csv")
@@ -34,7 +33,7 @@ def global_equity_model_init():
     logging.debug(config.education_index)
 
     non_resident_patent = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/非居民专利数.csv")
-    config.patents_per_capitan = non_resident_patent
+    config.patents_per_capitan = non_resident_patent.values
     logging.debug(config.patents_per_capitan)
 
     power_used = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/耗电量.csv")
@@ -47,7 +46,7 @@ def global_equity_model_init():
 
     population_per_city_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model"
                                            "/城市人口比例.csv")
-    config.population_density_per_city = population_per_city_file
+    config.population_density_per_city = population_per_city_file.values
     logging.debug(config.population_density_per_city)
 
     water_file = pd.read_csv("/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/人均可再生内陆水资源.csv")
