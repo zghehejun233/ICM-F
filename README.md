@@ -69,3 +69,33 @@ feat: 添加了xxx功能
 
 对本次 commit 的详细描述，可以分成多行，可详细说明代码变动的动机
 ```
+
+## 定义
+
+### 八个参量
+
+```python
+import numpy as np
+
+happiness_index = np.array([])
+development_index = np.array([])
+resource_index = np.array([])
+labor_index = np.array([])
+economic_index = np.array([])
+education_index = np.array([])
+technology_index = np.array([])
+population = np.array([])
+```
+
+### 定义科技水平的两个子指标
+
+patents_per_capitan = np.array([])
+electricity_per_capitan = np.array([])
+
+### 定义资源水平的三个子指标及其矩阵
+
+population_density_per_city = np.array([])
+water_per_capitan = np.array([])
+forest_per_capitan = np.array([])
+
+resource_matrix = np.array([])
