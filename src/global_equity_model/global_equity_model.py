@@ -47,20 +47,20 @@ def resource_modify_function(data):
 
 
 def get_final_index(inc, res, lab, eco, edu, tech, pop):
-    a = 1
-    b = 1
-    c = 1
-    d = 1
-    e = 1
-    f = 1
-    g = 1
-    h = 1
-    final_index = np.array(a * inc + b * res + c * lab + d * eco + e * edu + f * eco + g * tech + h * pop)
-    final_index_except_america = final_index[:-1,:]
+    a = 0.30
+    b = 0.28
+    c = 0.22
+    d = 0.45
+    e = 0.34
+    f = 0.28
+    g = 0.33
+    final_index = np.array(a * inc + b * res + c * lab + d * eco + e * edu + f * tech + g * pop)
+    final_index_except_america = final_index[:-1, :]
     for i in range(final_index.shape[1]):
-        final_index[:,i] = maximum_normalization(final_index[:,i])
+        final_index[:, i] = maximum_normalization(final_index[:, i])
     for i in range(final_index_except_america.shape[1]):
-        final_index_except_america[:,i]=maximum_normalization(final_index_except_america[:,i])
+        final_index_except_america[:, i] = maximum_normalization(final_index_except_america[:, i])
+    np.savetxt("../data/global_equity_model/final_index.csv", final_index, delimiter=",")
     return final_index
 
 
