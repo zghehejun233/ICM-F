@@ -50,23 +50,21 @@ def save_info_matrix(inc, res, lab, eco, edu, tech, pop):
     for i in range(inc.shape[1]):
         temp = np.vstack((inc[:, i], res[:, i], lab[:, i], eco[:, i], edu[:, i], tech[:, i], pop[:, i]))
         temp_ = temp.transpose()
-        np.savetxt("逐年各个指标{}.csv".format(1990 + i), temp_,fmt='%.4f',delimiter=',')
+        np.savetxt("逐年各个指标{}.csv".format(1990 + i), temp_, fmt='%.4f', delimiter=',')
 
-def get_final_index(inc, res, lab, eco, edu, tech, pop):
-    a = 0.30
+
+def get_final_index(inc, res, lab, eco, edu, tech, pop, high_tech):
+    a = 0.20
     b = 0.28
     c = 0.22
-    d = 0.45
-    e = 0.34
-    f = 0.28
+    d = 0.35
+    e = 0.54
+    f = 0.48
     g = 0.33
     final_index = np.array(a * inc + b * res + c * lab + d * eco + e * edu + f * tech + g * pop)
-    final_index_except_america = final_index[:-1, :]
     for i in range(final_index.shape[1]):
         final_index[:, i] = maximum_normalization(final_index[:, i])
-    for i in range(final_index_except_america.shape[1]):
-        final_index_except_america[:, i] = maximum_normalization(final_index_except_america[:, i])
-    np.savetxt("../data/global_equity_model/final_index.csv", final_index, delimiter=",")
+    np.savetxt("final_tech_index.csv", final_index, delimiter=",")
     return final_index
 
 
@@ -98,6 +96,10 @@ def start():
     temp = power_used.values
     electricity_per_capitan = temp[:, 21:].astype(np.float64)
 
+    high_technology_income_file = pd.read_csv(
+        "/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/高科技出口（美元）筛选数据.csv")
+    temp = high_technology_income_file.values
+    high_technology_income = temp[:, 3:].astype(np.float64)
 
     population_file = pd.read_csv('/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_model/人口筛选数据.csv')
     temp = population_file.values
@@ -121,6 +123,7 @@ def start():
     economic_index = np.nan_to_num(economic_index, nan=0)
     education_index = np.nan_to_num(education_index, nan=0)
     population_index = np.nan_to_num(population_index, nan=0)
+    high_technology_income = np.nan_to_num(high_technology_income, nan=0)
 
     patents_per_capitan = np.nan_to_num(patents_per_capitan, nan=0.0)
     electricity_per_capitan = np.nan_to_num(electricity_per_capitan, nan=0)
@@ -197,9 +200,16 @@ def start():
     for i in range(population_index.shape[1]):
         population_index[:, i] = maximum_normalization(population_index[:, i])
 
+    for i in range(high_technology_income.shape[1]):
+        high_technology_income[:, i] = maximum_normalization(high_technology_income[:, i])
+
     print('因子计算结束')
-    # save_info_matrix(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
-    #                population_index)
-    get_final_index(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
+    save_info_matrix(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
                     population_index)
+    get_final_index(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
+                    population_index, high_technology_income)
     print('全球公平指数生成')
+
+
+if __name__ == '__main__':
+    start()

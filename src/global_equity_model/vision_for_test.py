@@ -11,11 +11,34 @@ import pandas as pd
 import numpy as np
 import seaborn
 
-X = pd.read_csv("/data/global_equity_data/全球均衡模型最终得分.csv")
+# Importing the dataset
+dataset = pd.read_csv('/Users/guosurui/Documents/git_code/ICM-F/data/global_equity_data/逐年各个指标2013.csv')
+X = dataset.iloc[:, 5:7].values
+
 # Using the elbow method to find the optimal number of clusters
-dots_information = X.values
-dots_information_ = np.delete(dots_information, [1, 2, 3, 4, 5, 7, 9, 10, 11, 12, 13, 15, 18, 19, 20, 22, 23, 24],
-                              0).transpose()
-figure = plt.figure(1, figsize=(19, 11))
-plt.plot(dots_information_)
+from sklearn.cluster import KMeans
+wcss = []
+for i in range(1,11):
+    kmeans = KMeans(n_clusters = i, max_iter = 300, n_init = 10, init = 'k-means++', random_state = 0)
+    kmeans.fit(X)
+    wcss.append(kmeans.inertia_)
+plt.plot(range(1,11), wcss)
+plt.title('The Elbow Method')
+plt.xlabel('Number of Clusters')
+plt.ylabel('WCSS')
+plt.show()
+
+# Applying the k-means to the mall dataset
+kmeans = KMeans(n_clusters = 3, max_iter = 300, n_init = 10, init = 'k-means++', random_state = 0)
+y_kmeans = kmeans.fit_predict(X)
+
+# Visualizing the clusters
+plt.scatter(X[y_kmeans == 0, 0], X[y_kmeans == 0, 1], s = 100, c = 'red', label = 'Careful')
+plt.scatter(X[y_kmeans == 1, 0], X[y_kmeans == 1, 1], s = 100, c = 'blue', label = 'Standard')
+plt.scatter(X[y_kmeans == 2, 0], X[y_kmeans == 2, 1], s = 100, c = 'green', label = 'Target')
+plt.scatter(kmeans.cluster_centers_[:, 0],  kmeans.cluster_centers_[:, 1], s = 300, c = 'yellow', label = 'Centroids')
+plt.title('Clusters of clients')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend()
 plt.show()
