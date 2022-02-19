@@ -49,7 +49,8 @@ def resource_modify_function(data):
 def save_info_matrix(inc, res, lab, eco, edu, tech, pop):
     for i in range(inc.shape[1]):
         temp = np.vstack((inc[:, i], res[:, i], lab[:, i], eco[:, i], edu[:, i], tech[:, i], pop[:, i]))
-        np.savetxt("逐年各个指标{}.csv".format(1990 + i), temp.transpose())
+        temp_ = temp.transpose()
+        np.savetxt("逐年各个指标{}.csv".format(1990 + i), temp_,fmt='%.4f',delimiter=',')
 
 def get_final_index(inc, res, lab, eco, edu, tech, pop):
     a = 0.30
