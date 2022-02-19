@@ -46,6 +46,11 @@ def resource_modify_function(data):
     return topsis(data, list_max, list_min)
 
 
+def save_info_matrix(inc, res, lab, eco, edu, tech, pop):
+    for i in range(inc.shape[1]):
+        temp = np.vstack((inc[:, i], res[:, i], lab[:, i], eco[:, i], edu[:, i], tech[:, i], pop[:, i]))
+        np.savetxt("逐年各个指标{}.csv".format(1990 + i), temp.transpose())
+
 def get_final_index(inc, res, lab, eco, edu, tech, pop):
     a = 0.30
     b = 0.28
@@ -196,6 +201,8 @@ def start():
         population_index[:, i] = maximum_normalization(population_index[:, i])
 
     print('因子计算结束')
+    save_info_matrix(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
+                    population_index)
     get_final_index(income_index, resource_index, labor_index, economic_index, education_index, technology_index,
                     population_index)
     print('全球公平指数生成')
