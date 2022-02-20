@@ -34,7 +34,6 @@ country_ability_index_matrix = maximum_normalization(typical_country_ability_vec
 # 增长因子计算函数
 def increase_function(data, punish):
     global p
-    data = data
     for i in range(data.shape[0]):
         for j in range(data.shape[1]):
             data[i, j] = data[i, j] * punish[i, j]
@@ -74,12 +73,12 @@ def increase(times):
         print('每个元素的开采难度为：')
         print(difficulty_matrix)
         punish_matrix = ability_matrix - difficulty_matrix
-        min = float(punish_matrix[0, 0])
-        for i in range(punish_matrix.shape[0]):
-            _min = float(np.min(punish_matrix[i]))
-            if float(_min < min):
-                min = _min
-        punish_matrix = punish_matrix - min
+        min_value = float(punish_matrix[0, 0])
+        for j in range(punish_matrix.shape[0]):
+            _min = float(np.min(punish_matrix[j]))
+            if float(_min < min_value):
+                min_value = _min
+        punish_matrix = punish_matrix - min_value
         print('惩罚矩阵的初始值为：')
         print(punish_matrix)
         increase_matrix = increase_function(profit_matrix, punish_matrix)
@@ -121,12 +120,12 @@ def init():
     print('每个元素的开采难度为：')
     print(difficulty_matrix)
     punish_matrix = ability_matrix - difficulty_matrix
-    min = float(punish_matrix[0, 0])
+    min_val = float(punish_matrix[0, 0])
     for i in range(punish_matrix.shape[0]):
         _min = float(np.min(punish_matrix[i]))
-        if float(_min < min):
-            min = _min
-    punish_matrix = punish_matrix - min
+        if float(_min < min_val):
+            min_val = _min
+    punish_matrix = punish_matrix - min_val
     print('惩罚矩阵的初始值为：')
     print(punish_matrix)
     increase_matrix = increase_function(profit_matrix, punish_matrix)
