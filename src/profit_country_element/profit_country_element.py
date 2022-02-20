@@ -1,4 +1,5 @@
 # coding=utf-8
+import random
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +48,7 @@ def increase_vector_function(data):
     global a, b, c, d
     vector = []
     for i in range(data.shape[0]):
-        vector.append(a * data[i, 0] + b * data[i, 1] + c * data[i, 2] + d * data[i, 3] + 1)
+        vector.append(a * data[i, 0] + b * data[i, 1] + c * data[i, 2] + d * data[i, 3] + random.uniform(0.9, 1.15))
     return vector
 
 
@@ -159,7 +160,7 @@ def draw_increase():
 
 
 if __name__ == '__main__':
-    time = int(input('输入演算的次数'))
+    time = 50
     print('********')
     print('开始演算')
     init()
