@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 # 国家实力
 typical_country_ability_vector = np.array([0.2, 0.5, 0.81])
@@ -88,7 +89,8 @@ def increase(times):
         print('增长向量为：')
         print(increase_vector)
         typical_country_ability_vector = np.multiply(typical_country_ability_vector, increase_vector)
-        country_ability_index_matrix = np.vstack((country_ability_index_matrix, typical_country_ability_vector))
+        _temp = maximum_normalization(typical_country_ability_vector)
+        country_ability_index_matrix = np.vstack((country_ability_index_matrix, _temp))
         print('增长后的国家能力为：')
         print(typical_country_ability_vector)
 
@@ -135,9 +137,16 @@ def init():
     print('增长向量为：')
     print(increase_vector)
     typical_country_ability_vector = np.multiply(typical_country_ability_vector, increase_vector)
-    country_ability_index_matrix = np.vstack((country_ability_index_matrix, typical_country_ability_vector))
+    _temp = maximum_normalization(typical_country_ability_vector)
+    country_ability_index_matrix = np.vstack((country_ability_index_matrix, _temp))
     print('增长后的国家能力为：')
     print(typical_country_ability_vector)
+
+
+def draw_increase():
+    plt.figure(1, figsize=(19, 11))
+    plt.plot(country_ability_index_matrix)
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -148,5 +157,6 @@ if __name__ == '__main__':
     increase(time)
     print('各国能力经过{}次演算后，变化如下所示'.format(time + 1))
     print(country_ability_index_matrix)
+    draw_increase()
     print('结束')
     print('********')
