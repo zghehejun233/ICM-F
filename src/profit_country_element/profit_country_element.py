@@ -2,19 +2,36 @@
 
 import numpy as np
 
+# 国家实力
 typical_country_ability_vector = np.array([0.2, 0.5, 0.81])
+# 人力成本 与国家成本关系通过increase_labor_vector函数拟合
 labor_cost_vector = np.array([0.1, 0.35, 0.55])
+# 物质开采难度
 typical_element_difficulty_vector = np.array([0.1, 0.15, 0.4, 0.7])
+# 物质开采收益
 typical_element_income_vector = np.array([0.2, 0.3, 0.6, 1.0])
+# 初始利润矩阵，方便后面全局引用
 profit_matrix = np.array([[0, 0, 0, 0],
                           [0, 0, 0, 0],
                           [0, 0, 0, 0]])
-country_ability_index_matrix = typical_country_ability_vector
 
+# 增长因子计算函数控制因子
 p = 0.1
+# 加权增长因子计算函数控制因子
 a, b, c, d = 0.1, 0.1, 0.5, 1.1
 
 
+# 归一化函数
+def maximum_normalization(data):
+    _range = np.max(data) - np.min(data)
+    return (data - np.min(data)) / _range
+
+
+# 将每次得到的实力因子归一化方便目测比较
+country_ability_index_matrix = maximum_normalization(typical_country_ability_vector)
+
+
+# 增长因子计算函数
 def increase_function(data, punish):
     global p
     data = data
@@ -24,6 +41,7 @@ def increase_function(data, punish):
     return data
 
 
+# 加权增长因子计算函数
 def increase_vector_function(data):
     global a, b, c, d
     vector = []
@@ -33,12 +51,14 @@ def increase_vector_function(data):
     return vector
 
 
-def incrase_labor_vector(data, ability):
+# 劳动力成本计算函数
+def increase_labor_vector(data, ability):
     for i in range(data.shape[0]):
         data[i] = np.power(ability[i], 3)
     return data
 
 
+# 增长循环函数
 def increase(times):
     global typical_country_ability_vector, typical_element_income_vector, typical_element_difficulty_vector, \
         labor_cost_vector, profit_matrix, country_ability_index_matrix
@@ -74,6 +94,7 @@ def increase(times):
         print(typical_country_ability_vector)
 
 
+# 初始化
 def init():
     global typical_country_ability_vector, typical_element_income_vector, typical_element_difficulty_vector, \
         labor_cost_vector, profit_matrix, country_ability_index_matrix
