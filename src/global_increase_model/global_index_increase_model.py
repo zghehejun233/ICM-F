@@ -2,7 +2,8 @@
 
 import numpy as np
 
-typical_country_ability_vector = np.array([0.2, 0.5, 0.81])
+typical_country_labor_vector = np.array([0.1, 0.2, 0.8])
+typical_country_tech_vector = np.array([0.3, 0.5, 0.6])
 labor_cost_vector = np.array([0.1, 0.35, 0.55])
 typical_element_difficulty_vector = np.array([0.1, 0.15, 0.4, 0.7])
 typical_element_income_vector = np.array([0.2, 0.3, 0.6, 1.0])
@@ -29,6 +30,7 @@ def increase_vector_function(data):
     vector = []
     for i in range(data.shape[0]):
         vector.append(a * data[i, 0] + b * data[i, 1] + c * data[i, 2] + d * data[i, 3] + 1)
+    print(vector)
     return vector
 
 
