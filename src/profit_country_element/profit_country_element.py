@@ -30,6 +30,7 @@ def maximum_normalization(data):
 
 # 将每次得到的实力因子归一化方便目测比较
 country_ability_index_matrix = maximum_normalization(typical_country_ability_vector)
+country_ability_absolute_index_matrix = typical_country_ability_vector
 
 
 # 增长因子计算函数
@@ -47,7 +48,6 @@ def increase_vector_function(data):
     vector = []
     for i in range(data.shape[0]):
         vector.append(a * data[i, 0] + b * data[i, 1] + c * data[i, 2] + d * data[i, 3] + 1)
-    print(vector)
     return vector
 
 
@@ -61,7 +61,7 @@ def increase_labor_vector(data, ability):
 # 增长循环函数
 def increase(times):
     global typical_country_ability_vector, typical_element_income_vector, typical_element_difficulty_vector, \
-        labor_cost_vector, profit_matrix, country_ability_index_matrix
+        labor_cost_vector, profit_matrix, country_ability_index_matrix, country_ability_absolute_index_matrix
     for i in range(times):
         print('第{}次演算'.format(i + 2))
         ability_matrix = np.array(
@@ -89,6 +89,8 @@ def increase(times):
         print('增长向量为：')
         print(increase_vector)
         typical_country_ability_vector = np.multiply(typical_country_ability_vector, increase_vector)
+        country_ability_absolute_index_matrix = np.vstack(
+            (country_ability_absolute_index_matrix, typical_country_ability_vector))
         _temp = maximum_normalization(typical_country_ability_vector)
         country_ability_index_matrix = np.vstack((country_ability_index_matrix, _temp))
         print('增长后的国家能力为：')
@@ -98,7 +100,7 @@ def increase(times):
 # 初始化
 def init():
     global typical_country_ability_vector, typical_element_income_vector, typical_element_difficulty_vector, \
-        labor_cost_vector, profit_matrix, country_ability_index_matrix
+        labor_cost_vector, profit_matrix, country_ability_index_matrix, country_ability_absolute_index_matrix
     print('第一次初始化')
 
     labor_cost_matrix = np.array([labor_cost_vector, labor_cost_vector, labor_cost_vector, labor_cost_vector])
@@ -137,6 +139,8 @@ def init():
     print('增长向量为：')
     print(increase_vector)
     typical_country_ability_vector = np.multiply(typical_country_ability_vector, increase_vector)
+    country_ability_absolute_index_matrix = np.vstack(
+        (country_ability_absolute_index_matrix, typical_country_ability_vector))
     _temp = maximum_normalization(typical_country_ability_vector)
     country_ability_index_matrix = np.vstack((country_ability_index_matrix, _temp))
     print('增长后的国家能力为：')
@@ -144,8 +148,13 @@ def init():
 
 
 def draw_increase():
+    global country_ability_index_matrix, country_ability_absolute_index_matrix
     plt.figure(1, figsize=(19, 11))
     plt.plot(country_ability_index_matrix)
+    plt.title('relative')
+    plt.figure(2, figsize=(19, 11))
+    plt.plot(country_ability_absolute_index_matrix)
+    plt.title('absolute')
     plt.show()
 
 
